@@ -49,10 +49,10 @@
     ReactNativeAutoUpdater* updater = [ReactNativeAutoUpdater sharedInstance];
     [updater setDelegate:self];
     NSURL* defaultMetadataFileLocation = [[NSBundle mainBundle] URLForResource:@"metadata" withExtension:@"json"];
-    [updater initializeWithUpdateMetadataUrl:[NSURL URLWithString:@"https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/qa/packager/metadata.json"]
+    [updater initializeWithUpdateMetadataUrl:[NSURL URLWithString:@"https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/qa/packager/metadata.json"]
                      defaultJSCodeLocation:jsCodeLocation
                defaultMetadataFileLocation:defaultMetadataFileLocation ];
-    [updater setHostnameForRelativeDownloadURLs:@"https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking"];
+    [updater setHostnameForRelativeDownloadURLs:@"https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour"];
     [updater downloadUpdatesForType: ReactNativeAutoUpdaterPatchUpdate];
     [updater allowCellularDataUse: YES];
     [updater checkUpdate];

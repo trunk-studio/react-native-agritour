@@ -42,7 +42,7 @@ public class MainActivity extends ReactNativeAutoUpdaterActivity {
      */
     @Override
     protected String getUpdateMetadataUrl() {
-        return "https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/qa/packager/metadata.android.json";
+        return "https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/qa/packager/metadata.android.json";
 //        return "http://192.168.2.101:3000/metadata.android.json";
     }
 
@@ -62,7 +62,7 @@ public class MainActivity extends ReactNativeAutoUpdaterActivity {
      */
     @Override
     protected String getHostnameForRelativeDownloadURLs() {
-        return "https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking";
+        return "https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour";
 //        return "http://192.168.2.101:3000";
     }
 
