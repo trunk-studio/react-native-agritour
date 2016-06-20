@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 3,
     borderWidth: 1,
-    backgroundColor: 'rgb(79, 164, 89)',
-    borderColor: 'rgb(79, 164, 89)',
+    backgroundColor: '#F08F74',
+    borderColor: '#F08F74',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -51,6 +51,6 @@ Button.defaultProps = {
   active: false,
   width: 50,
   onPress: () => {},
-  activeColor: 'rgb(79, 164, 89)',
+  activeColor: '#F08F74',
   textColor: '#fff',
 };

@@ -1,4 +1,4 @@
-package com.trunksys.gohiking;
+package com.trunksys.agritour;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 public class PermissionCheckActivity extends Activity {
 
     private static final int MY_PERMISSION_LOCATION = 111;
-    private static final String TAG = "GoHiking";
+    private static final String TAG = "agritour";
     private static final String[] REQUIRED_PERMISSIONS =
             new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,

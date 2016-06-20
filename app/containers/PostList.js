@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   filterContainer: {
-    backgroundColor: '#567354',
+    backgroundColor: '#FDB76F',
     marginTop: -1,
     paddingTop: 5,
     paddingBottom: 2,
@@ -135,7 +135,7 @@ export default class PostList extends Component {
       swipeoutBtns.push(
         {
           text: '收藏',
-          backgroundColor: 'rgb(79, 164, 89)',
+          backgroundColor: '#F08F74',
           onPress: this.props.requestAddFavorite.bind(this, rowData.id),
         },
       );
@@ -298,9 +298,9 @@ export default class PostList extends Component {
     ];
     const type = [
       { title: '全部類型' },
-      { title: '郊　山' },
-      { title: '中級山', width: 65 },
-      { title: '百　岳' },
+      { title: '採果', width: 56 },
+      { title: '用餐', width: 57 },
+      { title: '遊玩', width: 56 },
     ];
     return (
       <View style={styles.content}>
@@ -313,7 +313,7 @@ export default class PostList extends Component {
             onChange={this.typeOnChange}
             activeColor={'#fff'}
             textColor={'#567354'}
-            />
+          />
           <Filter
             title={'區域'}
             dataList={area}
@@ -333,7 +333,7 @@ export default class PostList extends Component {
           pageSize={5}
           distanceToLoadMore={500}
         />
-        {/*<ScrollView>
+        {/* <ScrollView>
           {this.renderScrollViewListItem()}
         </ScrollView>*/}
     </View>

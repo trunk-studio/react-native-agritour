@@ -20,8 +20,10 @@ import { requestSetLocation } from '../actions/GeoActions';
 import DashboardFilter from './DashboardFilter';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-// const coverImg = require('../images/dashboard.png');
-const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/prod/images/dashboard.jpg' };
+const coverImg = require('../images/dashboard.jpg');
+const coverBottomImg = require('../images/coverBottom.png');
+// const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/dashboard.jpg' };
+// const coverBottomImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/cover-bottom.png' };
 const StyleSheet = require('../utils/F8StyleSheet');
 const windowSize = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     borderRadius: 3,
-    backgroundColor: 'rgb(79, 164, 89)',
+    backgroundColor: '#F08F74',
     width: 200,
     alignItems: 'center',
     justifyContent: 'center',
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     android: {
       position: 'absolute',
       top: 210,
-      left: windowSize.width / 2 - 90,
+      left: windowSize.width / 2 - 60,
     },
   },
   mainContent: {
@@ -97,12 +99,15 @@ const styles = StyleSheet.create({
   },
   coverBottom: {
     ios: {
+      width: windowSize.width,
       height: 60,
       position: 'relative',
       top: -30,
     },
     android: {
+      width: windowSize.width,
       marginBottom: 55,
+      height: 0,
       /*
       width: windowSize.width,
       height: 5,
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
     android: {
       width: windowSize.width,
       height: 5,
-      backgroundColor: 'rgb(79, 164, 89)',
+      backgroundColor: '#F08F74',
       marginBottom: 10,
     },
   },
@@ -185,6 +190,11 @@ export default class Dashboard extends Component {
       this.props.requestWeather({ name: locationName, country: countryName });
     }
   }
+  onSearchHandle = () => {
+    this.props.requestFilterArea(this.state.areaId);
+    this.props.requestFilterType(this.state.typeId);
+    Actions.tabList();
+  };
   areaOnChange = (id) => {
     // this.props.requestFilterArea(id);
     this.setState({
@@ -197,13 +207,8 @@ export default class Dashboard extends Component {
       typeId: id,
     });
   };
-  onSearchHandle = () => {
-    this.props.requestFilterArea(this.state.areaId);
-    this.props.requestFilterType(this.state.typeId);
-    Actions.tabList();
-  };
   rightsInfoHandle = () => {
-    const msg = 'ㄧ、台灣步道一指通(以下簡稱本程式)所有之內容，本程式擁有著作權，均受到中 ' +
+    const msg = 'ㄧ、採果小旅行(以下簡稱本程式)所有之內容，本程式擁有著作權，均受到中 ' +
     '華民國著作權法及國際著作權法律的保障。非經本程式同意，任何人均不得以任何方式重製、改作、' +
       '編輯等使用本網站內所有內容，如有侵害，本程式將依法訴追所有之民、刑事責任。本程式資訊內容受' +
       '著作權法保護者，除有合理使用情形外，應取得本程式之同意或授權後，方得利用；若涉及其他著作' +
@@ -223,14 +228,14 @@ export default class Dashboard extends Component {
       url = url.replace(/ct.asp/, 'fp.asp');
       let title = activityData.list[detail.index].title;
       if (title.length > 10) {
-        title = title.slice(0, 9) + '...';
+        title = `${title.slice(0, 9)}...`;
       }
       Actions.webViewPage({
         url,
         title,
       });
     }
-    const { listData, month, date, weekday, temp, desc, iconId } = this.props;
+    // const { listData, month, date, weekday, temp, desc, iconId } = this.props;
     let activityListData = [];
     for (const item of activityData.list) {
       activityListData.push({
@@ -253,7 +258,7 @@ export default class Dashboard extends Component {
               />
             </TouchableOpacity>
             <Text style={styles.headerTitle} allowFontScaling={false}>
-                台灣步道一指通
+                採果小旅行
             </Text>
             <View style={styles.versionBlock}>
               <Text allowFontScaling={false} style={styles.imgSrcText}>
@@ -265,7 +270,7 @@ export default class Dashboard extends Component {
       >
         <View style={styles.coverBottomWrapper} />
         <Image
-          source={{ uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/prod/images/cover-bottom.png' }}
+          source={coverBottomImg}
           resizeMode="contain"
           style={ styles.coverBottom }
         />

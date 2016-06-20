@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     // },
   },
   underline: {
-    backgroundColor: 'rgb(79, 164, 89)',
+    backgroundColor: '#F08F74',
     height: 5,
   },
   scrollFrame: {
@@ -310,8 +310,8 @@ class PostDetail extends Component {
   }
 
   navigate = () => {
-    Alert.alert('立即前往', '導航僅供參考', [
-      { text: '確認', onPress: () => {
+    Alert.alert('立即前往', '注意：導航僅供參考', [
+      { text: '確認並前往', onPress: () => {
         const url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${this.props.lat},${this.props.lon}`;
         Linking.canOpenURL(url).then(supported => {
           if (supported) {
@@ -397,12 +397,18 @@ class PostDetail extends Component {
           </Text>
         </View>
         <View style={{ marginBottom: 18, justifyContent: 'center', alignItems: 'center' }}>
-          <TouchableOpacity
-            style={{ padding: 5, paddingLeft: 10, paddingRight: 10, backgroundColor: '#709D2A', borderRadius: 5 }}
+          {/* <TouchableOpacity
+            style={{
+              padding: 5,
+              paddingLeft: 10,
+              paddingRight: 10,
+              backgroundColor: '#709D2A',
+              borderRadius: 5,
+            }}
             onPress={this.onImageSrcBtn}
           >
             <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         {this.map()}
         {this.gmap()}
@@ -442,7 +448,7 @@ class PostDetail extends Component {
             <Text allowFontScaling={false} style={{ marginTop: 34, fontSize: 14, marginBottom: 20, lineHeight: 25 }}>
               {this.props.description_01}
             </Text>
-            <TouchableOpacity
+            {/*<TouchableOpacity
               style={{
                 width: 150,
                 marginLeft: 100,
@@ -455,7 +461,7 @@ class PostDetail extends Component {
               onPress={this.onImageSrcBtn}
             >
               <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
           {this.map()}
           {this.gmap()}
         </View>
@@ -465,7 +471,7 @@ class PostDetail extends Component {
 
     return (
       <ParallaxView
-        backgroundSource={{ uri: `https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/prod/images/cover/${this.props.id}/${this.props.id}_l.jpg` }}
+        backgroundSource={{ uri: `https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/cover/${this.props.id}/${this.props.id}_l.jpg` }}
         windowHeight={260}
         header={(
           <View style={styles.header}>

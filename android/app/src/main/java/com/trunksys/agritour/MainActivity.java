@@ -1,4 +1,4 @@
-package com.trunksys.gohiking;
+package com.trunksys.agritour;
 
 
 import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdater;
@@ -9,17 +9,18 @@ import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdaterPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import cl.json.RNSharePackage;
 
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import cl.json.RNSharePackage;
+
 public class MainActivity extends ReactNativeAutoUpdaterActivity {
 
     private static final int MY_PERMISSION_LOCATION = 111;
-    private static final String TAG = "GoHiking";
+    private static final String TAG = "agritour";
 
     /*************************************************
      * These methods are required for the ReactNativeAutoUpdater Part

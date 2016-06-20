@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 40,
-    color: '#417505', //'#359ac0',
+    color: '#F08F74', //'#359ac0',
   },
   newsTitle: {
     fontSize: 14,
@@ -55,7 +55,7 @@ export default function NewsItem(props) {
   }
   return (
     <TouchableOpacity underlayColor={"#f3f3f3"} onPress={onItemPress}>
-      <View style={{height: 1, backgroundColor: '#37A22E'}} />
+      <View style={{ height: 1, backgroundColor: '#F08F74' }} />
       <View style={styles.newsItem}>
         <View style={styles.newsConent}>
           <Text allowFontScaling={false} style={styles.newsTitle} numberOfLines={1}>

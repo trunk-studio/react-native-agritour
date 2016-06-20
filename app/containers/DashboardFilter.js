@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     borderRadius: 3,
-    backgroundColor: 'rgb(79, 164, 89)',
+    backgroundColor: '#F08F74',
     width: 200,
     alignItems: 'center',
     justifyContent: 'center',
@@ -168,10 +168,10 @@ export default class Dashboard extends Component {
       { title: '東部' },
     ];
     const type = [
-      { title: '全部類型' },
-      { title: '郊　山' },
-      { title: '中級山' }, // 不要加 width 避免 large font 被強迫換行
-      { title: '百　岳' },
+      { title: '全部種類' },
+      { title: '採　果' },
+      { title: '用　餐' }, // 不要加 width 避免 large font 被強迫換行
+      { title: '遊　玩' },
     ];
     return (
       <View style={styles.container}>
@@ -181,19 +181,19 @@ export default class Dashboard extends Component {
           dataList={type}
           active={this.state.typeId}
           onChange={this.typeOnChange}
-          activeColor={'#37A22E'}
+          activeColor={'#F08F74'}
         />
         <Filter
           title={'區域'}
           dataList={area}
           active={this.state.areaId}
           onChange={this.areaOnChange}
-          activeColor={'#338CAB'}
+          activeColor={'#FDB76F'}
         />
         <View style={styles.searchContainer}>
           <TouchableOpacity style={styles.searchBtn} onPress={this.onSearchHandle}>
             <Icon allowFontScaling={false} name={'search'} style={ styles.searchIcon } />
-            <Text allowFontScaling={false} style={styles.searchText}>搜尋台灣步道</Text>
+            <Text allowFontScaling={false} style={styles.searchText}>選 擇 主 題</Text>
           </TouchableOpacity>
         </View>
       </View>

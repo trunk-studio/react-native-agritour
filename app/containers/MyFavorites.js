@@ -103,13 +103,13 @@ export default class MyFavorite extends Component {
             if (Platform.OS === 'ios') {
               downloadUrl = 'https://appsto.re/tw/F5Xwcb.i';
             } else {
-              downloadUrl = 'https://play.google.com/store/apps/details?id=com.trunksys.gohiking';
+              downloadUrl = 'https://play.google.com/store/apps/details?id=com.trunksys.agritour';
             }
             Share.open({
-              share_text: `好想去爬山啊。 ${rowData.title} 感覺不錯，改天一起來爬啊`,
+              share_text: `嘿！我發現 ${rowData.title} 感覺不錯，週末我們一起去看看吧！`,
               share_URL: downloadUrl,
-              title: `台灣步道一指通`,
-            },(e) => {
+              title: '採果小旅行',
+            }, (e) => {
               console.log(e);
             });
           },
@@ -153,7 +153,7 @@ export default class MyFavorite extends Component {
               color={'#666'}
             />
           <Text allowFontScaling={false} style={styles.textNoFavItem}>
-            目前您沒有收藏任何步道 :p
+            目前您沒有收藏任何地點 :p
           </Text>
           </View>
         </ScrollView>);
