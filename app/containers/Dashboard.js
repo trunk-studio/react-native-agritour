@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     android: {
       position: 'absolute',
       top: 210,
-      left: windowSize.width / 2 - 60,
+      left: windowSize.width / 2 - 70,
     },
   },
   mainContent: {
