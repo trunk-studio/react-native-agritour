@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "&#x53f0;&#x7063;&#x6b65;&#x9053;.app"
-               BlueprintName = "GoHiking"
+               BlueprintName = "AgriTour"
                ReferencedContainer = "container:App.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,7 +48,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "&#x53f0;&#x7063;&#x6b65;&#x9053;.app"
-            BlueprintName = "GoHiking"
+            BlueprintName = "AgriTour"
             ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "&#x53f0;&#x7063;&#x6b65;&#x9053;.app"
-            BlueprintName = "GoHiking"
+            BlueprintName = "AgriTour"
             ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -94,7 +94,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "&#x53f0;&#x7063;&#x6b65;&#x9053;.app"
-            BlueprintName = "GoHiking"
+            BlueprintName = "AgriTour"
             ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

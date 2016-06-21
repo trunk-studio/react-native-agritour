@@ -80,21 +80,21 @@ android {
     signingConfigs {
         config {
             keyAlias 'Trunk-Studio'
-            storeFile file('/Users/kueiyen/gohiking_keystore.jks')
+            storeFile file('/Users/kueiyen/trunkstudio_keystore.jks')
         }
     }
     compileSdkVersion 23
     buildToolsVersion '23.0.3'
     defaultConfig {
-        applicationId 'com.trunksys.gohiking'
+        applicationId 'com.trunksys.agritour'
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 16
-        versionName '2.0.1'
+        versionCode 4
+        versionName '1.0.1'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        testApplicationId 'com.trunksys.gohiking.test'
+        testApplicationId 'com.trunksys.agritour.test'
         signingConfig signingConfigs.config
     }
     splits {
@@ -137,15 +137,16 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-auto-updater')
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.facebook.react:react-native:+'
     // From node_modules
-    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:appcompat-v7:24.0.0-beta1'
+    compile 'com.facebook.react:react-native:+'
+    compile 'com.android.support:design:24.0.0-beta1'
+    compile 'com.google.android.gms:play-services-analytics:9.0.0'
 }
 
 // Run this once to be able to run the application with BUCK
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
-  from configurations.compile
-  into 'libs'
+    from configurations.compile
+    into 'libs'
 }

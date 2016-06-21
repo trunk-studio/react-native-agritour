@@ -21,7 +21,8 @@ import NewsBoard from '../components/NewsBoard';
 import NewsItem from '../components/NewsItem';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/hiking/prod/images/dashboard.jpg' };
+const coverImg = require('../images/dashboard.jpg');
+// const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/dashboard.jpg' };
 const StyleSheet = require('../utils/F8StyleSheet');
 const windowSize = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     borderRadius: 3,
-    backgroundColor: 'rgb(79, 164, 89)',
+    backgroundColor: '#FDB76F',
     width: 200,
     alignItems: 'center',
     justifyContent: 'center',
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
   versionBlock: {
     position: 'absolute',
-    top: -50,
+    top: -40,
     bottom: 15,
     right: 5,
     padding: 2,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   dashboardItem: {
     top: 0,
     flex: 1,
-    marginTop: -300,
+    marginTop: -250,
     height: 150,
   },
   rightsInfo: {
@@ -150,7 +151,7 @@ export default class Dashboard extends Component {
     });
   };
   rightsInfoHandle = () => {
-    const msg = 'ㄧ、台灣步道一指通(以下簡稱本程式)所有之內容，本程式擁有著作權，均受到中 ' +
+    const msg = 'ㄧ、採果小旅行(以下簡稱本程式)所有之內容，本程式擁有著作權，均受到中 ' +
     '華民國著作權法及國際著作權法律的保障。非經本程式同意，任何人均不得以任何方式重製、改作、' +
       '編輯等使用本網站內所有內容，如有侵害，本程式將依法訴追所有之民、刑事責任。本程式資訊內容受' +
       '著作權法保護者，除有合理使用情形外，應取得本程式之同意或授權後，方得利用；若涉及其他著作' +
@@ -216,7 +217,7 @@ export default class Dashboard extends Component {
         </TouchableOpacity>
         <View style={styles.header}>
           <Text allowFontScaling={false} style={styles.headerTitle}>
-              台灣步道一指通
+              採果小旅行
           </Text>
           <View style={styles.versionBlock}>
             <Text allowFontScaling={false} style={styles.imgSrcText}>

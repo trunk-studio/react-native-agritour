@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   boardBar: {
-    backgroundColor: 'rgb(79, 164, 89)', // '#359ac0',
+    backgroundColor: '#F08F74', // '#359ac0',
     paddingLeft: 20,
     paddingTop: 10,
     paddingBottom: 10,

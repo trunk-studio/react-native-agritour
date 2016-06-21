@@ -83,6 +83,6 @@ FilterContainer.defaultProps = {
   dataList: [],
   active: 1,
   onChange: () => {},
-  activeColor: 'rgb(79, 164, 89)',
+  activeColor: '#F08F74',
   textColor: '#fff',
 };
