@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android-mock-update-server": "json-server db.json --watch --static ./android/app/src/main/assets",
-    "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --dev false --entry-file index.ios.js --assets-dest ./ios/assets --bundle-output ./ios/main.jsbundle --sourcemap-output ./ios/sourcemap.js",
+    "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --dev false --entry-file index.ios.js --assets-dest ./ios/App/Images.xcassets --bundle-output ./ios/main.jsbundle --sourcemap-output ./ios/sourcemap.js",
     "bundle-android": "node node_modules/react-native/local-cli/cli.js bundle --dev false --platform android --entry-file index.android.js --assets-dest ./android/app/src/main/res --bundle-output ./android/app/src/main/assets/main.android.jsbundle --sourcemap-output ./android/app/src/main/assets/sourcemap.android.js",
     "gsjson": "./node_modules/.bin/gsjson -b 1XDWPICgxuQEjwfn1-Klv1XwZdmYGuHSG8wBFG5uZosw ./app/json/data.src.json; echo \"module.exports = $(cat ./app/json/data.src.json)\" > ./app/json/data.js; rm ./app/json/data.src.json",
     "mongo": "docker run -d -p 27017:27017 --name mongo mongo",
