@@ -1,4 +1,5 @@
 import { checkIsFav, getFavList } from '../actions/FavoriteActions';
+import { fetchFromServer } from '../utils/serverFetch';
 import pathListData from '../json/data';
 export const UPDATE_PATH_LIST = 'UPDATE_PATH_LIST';
 
@@ -10,11 +11,19 @@ function updatePathList(data) {
 }
 
 export async function requestPathData() {
+  const fetchData = await fetchFromServer('get', 'content');
+  console.log('fetchData=>', fetchData);
   let listData = pathListData;
-  let favoriteList = await getFavList();
+
+  if (pathListData !== fetchData.list) {
+    listData = fetchData.list;
+    console.log('update content');
+  }
+
+  const favoriteList = await getFavList();
   const amount = favoriteList.length;
   let count = 0;
-  for (let item of listData) {
+  for (const item of listData) {
     if (favoriteList.indexOf(item.id) >= 0) {
       item.isFav = true;
       count += 1;
