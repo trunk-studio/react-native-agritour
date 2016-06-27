@@ -15,6 +15,7 @@ import RNRF, {
   Actions,
 } from 'react-native-router-flux';
 // const Router = connect()(RNRF.Router);
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 
 // View
 import WebViewPage from './containers/WebViewPage';
@@ -69,6 +70,7 @@ export default class AppRoutes extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    GoogleAnalytics.setTrackerId('UA-74285642-3');
   }
 
   componentWillMount() {

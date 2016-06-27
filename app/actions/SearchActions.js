@@ -2,6 +2,7 @@ export const RECEIVED_SEARCH_NEWS = 'RECEIVED_SEARCH_NEWS';
 export const RECEIVED_SEARCH_POST = 'RECEIVED_SEARCH_POST';
 export const RECEIVED_AREA = 'RECEIVED_AREA';
 export const RECEIVED_TYPE = 'RECEIVED_TYPE';
+import { fetchFromServer } from '../utils/serverFetch';
 
 function receivedFilterArea(index) {
   return {
@@ -44,19 +45,12 @@ function receivedSearchPost(postList) {
 }
 
 export async function requestNews() {
-  const newsList = [{ title: '天天五蔬果營養課程活動', content: '宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '天天五蔬果營養課程活動', content: '宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '好康大放送！食安守門站運動焦點活動', content: '農委會致力打造安全、安心的農產品供應鏈，宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '天天五蔬果營養課程活動', content: '宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '好康大放送！食安守門站運動焦點活動', content: '農委會致力打造安全、安心的農產品供應鏈，宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '天天五蔬果營養課程活動', content: '宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '好康大放送！食安守門站運動焦點活動', content: '農委會致力打造安全、安心的農產品供應鏈，宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '天天五蔬果營養課程活動', content: '宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-    { title: '好康大放送！食安守門站運動焦點活動', content: '農委會致力打造安全、安心的農產品供應鏈，宣導健康飲食原則養成天天攝取五蔬果的習慣' },
-  ];
+  const fetchData = await fetchFromServer('get', 'news');
+  console.log('fetchData=>', fetchData);
 
   return (dispatch) => {
-    dispatch(receivedSearchNews(newsList));
+    // dispatch(receivedSearchNews(newsList));
+    dispatch(receivedSearchNews({ news: fetchData }));
   };
 }
 

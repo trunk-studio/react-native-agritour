@@ -8,6 +8,7 @@ import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdaterActivity;
 import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdaterPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 import java.util.Arrays;
@@ -140,6 +141,7 @@ public class MainActivity extends ReactNativeAutoUpdaterActivity {
         return Arrays.asList(
                 new ReactNativeAutoUpdaterPackage(),
                 new MainReactPackage(),
+                new GoogleAnalyticsBridgePackage(),
                 new RNSharePackage(),
                 new VectorIconsPackage()
         );

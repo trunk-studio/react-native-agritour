@@ -2,7 +2,6 @@ import React, {
   View,
   Component,
   ListView,
-  ScrollView,
   Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -31,15 +30,15 @@ const styles = StyleSheet.create({
   },
 });
 
-var areaCache = {
+const areaCache = {
   cached: false,
-  north: [],  //北部
-  east: [],   //東部
-  west: [],   //中部
-  south: [],  //南部
+  north: [],  // 北部
+  east: [],   // 東部
+  west: [],   // 中部
+  south: [],  // 南部
 };
 
-var createAreaCache = function(originalList) {
+const createAreaCache = (originalList) => {
   if (!areaCache.cached) {
     for (let i = 0; i < originalList.length; i++) {
       if (originalList[i].zone === '北部') {
@@ -73,13 +72,12 @@ export default class PostList extends Component {
   }
 
   componentWillMount() {
+    this.props.requestPathData();
     // loading indicator
     this.setState({ visible: true });
   }
 
   componentDidMount() {
-    this.props.requestPathData();
-
     setTimeout(() => {
       this.setState({ visible: false });
     }, 500);
@@ -204,6 +202,26 @@ export default class PostList extends Component {
     this.props.requestFilterType(id);
   };
 
+  loadMorePost = () => {
+    const postList = [...this.state.postList];
+    const dataSource = postList.splice(0, this.state.dataSource.getRowCount() + 10);
+    let canLoadMoreContent = true;
+    if (postList.length === 0) {
+      canLoadMoreContent = false;
+    }
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(dataSource),
+      canLoadMoreContent,
+    });
+  }
+
+  renderScrollViewListItem = () => {
+    const ListItemArray = this.state.postList.map((post, i) => {
+      return this.getListItem(post, 0, i);
+    });
+    return ListItemArray;
+  }
+
   renderList = (nextProps) => {
     const area = [
       { title: '全部' },
@@ -221,7 +239,7 @@ export default class PostList extends Component {
 
     let originalList = nextProps.pathList;
 
-    //啟用快取加速
+    // 啟用快取加速
     createAreaCache(originalList);
 
     if (area[nextProps.areaIndex].title !== '全部') {
@@ -246,7 +264,7 @@ export default class PostList extends Component {
 
       postList = [];
 
-      let targetType = type[nextProps.typeIndex].title;
+      const targetType = type[nextProps.typeIndex].title;
 
       for (let i = 0; i < originalList.length; i++) {
         if (originalList[i].postType === targetType) {
@@ -268,27 +286,8 @@ export default class PostList extends Component {
     });
   }
 
-  renderScrollViewListItem = () => {
-    const ListItemArray = this.state.postList.map((post, i) => {
-      return this.getListItem(post, 0, i);
-    });
-    return ListItemArray;
-  }
-
-  loadMorePost = () => {
-    let postList = [...this.state.postList];
-    const dataSource = postList.splice(0, this.state.dataSource.getRowCount() + 10);
-    let canLoadMoreContent = true;
-    if (postList.length === 0) {
-      canLoadMoreContent = false;
-    }
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(dataSource),
-      canLoadMoreContent,
-    });
-  }
-
   render() {
+    console.log('this.props=>', this.props);
     const area = [
       { title: '全部區域' },
       { title: '北部' },
@@ -351,6 +350,7 @@ PostList.propTypes = {
   typeIndex: React.PropTypes.number,
   areaIndex: React.PropTypes.number,
   nowTab: React.PropTypes.string,
+  pathList: React.PropTypes.any,
 };
 
 PostList.defaultProps = {};

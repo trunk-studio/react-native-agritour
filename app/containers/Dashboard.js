@@ -8,7 +8,7 @@ import React, {
   TouchableOpacity,
 } from 'react-native';
 import NewsBoard from '../components/NewsBoard';
-import activityData from '../src/activity.json';
+import localActivityData from '../src/activity.json';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { requestNews, requestFilterArea, requestFilterType } from '../actions/SearchActions';
@@ -19,6 +19,7 @@ import ReactNativeAutoUpdater from 'react-native-auto-updater';
 import { requestSetLocation } from '../actions/GeoActions';
 import DashboardFilter from './DashboardFilter';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 
 const coverImg = require('../images/dashboard.jpg');
 const coverBottomImg = require('../images/coverBottom.png');
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
 });
+let activityData = localActivityData;
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -161,10 +163,14 @@ export default class Dashboard extends Component {
       areaId: 0,
       typeId: 0,
     };
+    GoogleAnalytics.trackScreenView('Dashboard');
+    GoogleAnalytics.setDryRun(true);
+    GoogleAnalytics.trackEvent('testcategory', 'Hello Android');
   }
 
   componentWillMount() {
-    // this.props.requestNews();
+    this.props.requestNews();
+
     // this.props.requestToday();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -185,9 +191,16 @@ export default class Dashboard extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    const { countryName, locationName } = nextProps;
+    const { countryName, locationName, listData } = nextProps;
     if (locationName !== undefined && locationName !== this.props.locationName) {
       this.props.requestWeather({ name: locationName, country: countryName });
+    }
+    console.log('listData', listData);
+    if (listData !== this.props.listData) {
+      if (listData.news !== localActivityData) {
+        activityData = listData.news;
+        console.log('update news');
+      }
     }
   }
   onSearchHandle = () => {
@@ -222,6 +235,7 @@ export default class Dashboard extends Component {
     Alert.alert('服務條款', msg);
   };
   render() {
+    console.log('this.props', this.props);
     function onListItemPress(detail) {
       let url = activityData.list[detail.index].url;
 
