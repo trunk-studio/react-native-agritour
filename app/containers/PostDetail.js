@@ -406,26 +406,33 @@ class PostDetail extends Component {
     }
 
     const { _nearbyPlaces } = this.props;
-    let sectionNearbyPlaces = null;
-    if (_nearbyPlaces) {
+    const type = typeof _nearbyPlaces === 'object';
+    let sectionNearbyPlaces = (
+      <Text>(正在搜尋附近景點與行程...)</Text>
+    );
+    if (type && _nearbyPlaces.length > 1) {
+      let data = [];
+      let total = 2;
+      if (_nearbyPlaces.length <= 3) {
+        total = _nearbyPlaces.length - 1;
+      }
+      for (let i = 0; i <= total; i++) {
+        data.push({
+          title: _nearbyPlaces[i].name,
+          img: _nearbyPlaces[i].photo,
+          data: _nearbyPlaces[i].geometry.location,
+        });
+      }
       sectionNearbyPlaces = (
       <SeasonalFruit
         onItemPress={this.navigate}
-        title={'附近行程'}
-        listData={[{
-          title: _nearbyPlaces[0].name,
-          img: _nearbyPlaces[0].photo,
-          data: _nearbyPlaces[0].geometry.location,
-        }, {
-          title: _nearbyPlaces[1].name,
-          img: _nearbyPlaces[1].photo,
-          data: _nearbyPlaces[1].geometry.location,
-        }, {
-          title: _nearbyPlaces[2].name,
-          img: _nearbyPlaces[2].photo,
-          data: _nearbyPlaces[2].geometry.location,
-        }]}
+        title={'附近餐廳/景點/行程'}
+        listData={data}
       />);
+    } else {
+      sectionNearbyPlaces = (
+        <Text>目前沒有附近推薦行程。</Text>
+      );
     }
     let toolbar = (
       <View>
@@ -506,23 +513,12 @@ class PostDetail extends Component {
             >
               {this.props.description_01}
             </Text>
-            {/* <TouchableOpacity
-              style={{
-                width: 150,
-                marginLeft: 100,
-                padding: 5,
-                paddingLeft: 10,
-                paddingRight: 10,
-                backgroundColor: '#709D2A',
-                borderRadius: 5,
-              }}
-              onPress={this.onImageSrcBtn}
-            >
-              <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
-            </TouchableOpacity>*/}
-          {/* {this.map()}*/}
-          {this.gmap()}
-        </View>
+            <View style={styles.sectionNearbyPlaces}>
+              {sectionNearbyPlaces}
+            </View>
+            {/* {this.map()}*/}
+            {this.gmap()}
+          </View>
         );
       }
     }
