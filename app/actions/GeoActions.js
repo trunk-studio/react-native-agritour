@@ -80,7 +80,7 @@ export async function requestNearbyPlaces(position, radius) {
   const apiWithParams = placeApi + target + range + language + types + apiKey;
   const _nearbyPlaces = await fetch(apiWithParams)
                               .then(response => response.json())
-                              .catch((e) => console.log('error=>', e));
+                              .catch((e) => console.log('fetch placeApi error=>', e));
 
   // prepare parameters for google `placePhoto` api.
   const placePhotosApi = 'https://maps.googleapis.com/maps/api/place/photo';
@@ -102,7 +102,7 @@ export async function requestNearbyPlaces(position, radius) {
         _nearbyPlacesWithPhotos[i].photo = 'https://unsplash.it/80/80/?random';
       }
     } catch (e) {
-      console.log('error=>', e);
+      console.log('fetch placePhotosApi error=>', e);
     }
   }
 
