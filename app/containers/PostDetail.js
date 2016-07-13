@@ -410,7 +410,7 @@ class PostDetail extends Component {
             <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
           </TouchableOpacity>*/}
         </View>
-        {this.map()}
+        {/*{this.map()}*/}
         {this.gmap()}
       </View>
     );
@@ -462,7 +462,7 @@ class PostDetail extends Component {
             >
               <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
             </TouchableOpacity>*/}
-          {this.map()}
+          {/*{this.map()}*/}
           {this.gmap()}
         </View>
         );

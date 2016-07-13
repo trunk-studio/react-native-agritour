@@ -305,7 +305,7 @@ export default class PostList extends Component {
     return (
       <View style={styles.content}>
         <Spinner visible={this.state.visible} />
-        <View style={styles.filterContainer}>
+        {/*<View style={styles.filterContainer}>
           <Filter
             title={'類型'}
             dataList={type}
@@ -322,7 +322,7 @@ export default class PostList extends Component {
             activeColor={'#fff'}
             textColor={'#567354'}
           />
-        </View>
+        </View>*/}
         <ListView
           renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.state.dataSource}

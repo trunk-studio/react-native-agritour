@@ -178,8 +178,8 @@ export default class AppRoutes extends Component {
                 <Scene key="dashboard" hideNavBar component={autoDashboard} title="首頁" initial />
                 <Scene key="newsDetail" hideNavBar={0} component={NewsDetail} title="活動資訊" />
             </Scene>
-            <Scene key="tabList" title="行程導覽" iconName="file-text-o" {...tabStyle} >
-                <Scene key="postList" component={PostList} title="行程導覽" />
+            <Scene key="tabList" title="導覽" iconName="file-text-o" {...tabStyle} >
+                <Scene key="postList" component={PostList} title="導覽" />
                 <Scene key="postDetail"
                   component={PostDetail}
                   renderBackButton={() => <BackBtn /> }
@@ -193,13 +193,13 @@ export default class AppRoutes extends Component {
                   renderBackButton={() => <BackBtn /> }
                 />
             </Scene>*/}
-            <Scene key="tabNews" title="我的收藏" iconName="heart" {...tabStyle}>
+            {/*<Scene key="tabNews" title="我的收藏" iconName="heart" {...tabStyle}>
                 <Scene key="myFavorites" component={MyFavorites} title="我的收藏" />
                 <Scene key="favPostDetail"
                   component={PostDetail}
                   renderBackButton={() => <BackBtn /> }
                 />
-            </Scene>
+            </Scene>*/}
           </Scene>
         </Scene>
         <Scene key="webViewPage" hideTabBar component={WebViewPage}
