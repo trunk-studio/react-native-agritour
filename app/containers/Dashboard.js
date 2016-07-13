@@ -19,7 +19,7 @@ import ReactNativeAutoUpdater from 'react-native-auto-updater';
 import { requestSetLocation } from '../actions/GeoActions';
 import DashboardFilter from './DashboardFilter';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
+import SeasonalFruit from '../components/SeasonalFruit/List';
 const coverImg = require('../images/dashboard.jpg');
 const coverBottomImg = require('../images/coverBottom.png');
 // const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/dashboard.jpg' };
@@ -275,7 +275,17 @@ export default class Dashboard extends Component {
           style={ styles.coverBottom }
         />
         <View style={styles.dashboardItem}>
-          <DashboardFilter />
+          {/*<DashboardFilter />*/}
+          <SeasonalFruit listData={[{
+            title: '龍眼',
+            img: 'http://www.wiki8.com/uploadfiles/ZoomImg/2009-12/3115445734.jpg.jpg'
+          },{
+            title: '葡萄',
+            img: 'http://515.tw.tranews.com/Show/images/Column/5662_1.jpg'
+          },{
+            title: '荔枝',
+            img: 'http://a2.att.hudong.com/10/30/19300001357344133005309198787.jpg'
+          }]}/>
           <NewsBoard
             boardTitle={'近期活動'}
             listData={activityListData}
