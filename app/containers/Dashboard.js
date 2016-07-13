@@ -17,7 +17,7 @@ import { requestWeather } from '../actions/WeatherActions';
 import ParallaxView from 'react-native-parallax-view';
 import ReactNativeAutoUpdater from 'react-native-auto-updater';
 import { requestSetLocation } from '../actions/GeoActions';
-import DashboardFilter from './DashboardFilter';
+// import DashboardFilter from './DashboardFilter';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import SeasonalFruit from '../components/SeasonalFruit/List';
 // const coverImg = require('../images/dashboard.jpg');
