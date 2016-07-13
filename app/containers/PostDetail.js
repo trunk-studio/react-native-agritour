@@ -24,7 +24,6 @@ import {
 } from '../actions/FavoriteActions';
 import {
   requestNearbyPlaces,
-  requestPlacePhotos,
 } from '../actions/GeoActions';
 import LightBox from 'react-native-lightbox';
 const StyleSheet = require('../utils/F8StyleSheet');
@@ -197,7 +196,6 @@ class PostDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.title !== nextProps.title) {
-      console.log('getNearbyPlaces now');
       this.getNearbyPlaces();
     }
   }
@@ -219,12 +217,7 @@ class PostDetail extends Component {
       lon,
       lat,
     };
-    this.props.requestNearbyPlaces(position, 1000);
-  }
-
-  getNearbyPlacePhotos = () => {
-    const { _photoreference } = this.props;
-    this.props.requestPlacePhotos(_photoreference);
+    this.props.requestNearbyPlaces(position, 2000);
   }
 
   info = () => {
@@ -350,7 +343,7 @@ class PostDetail extends Component {
     Alert.alert('立即前往', '注意：導航僅供參考', [
       { text: '確認並前往', onPress: () => {
         let url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${this.props.lat},${this.props.lon}`;
-        if (data) {
+        if (data.lat && data.lng) {
           url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${data.lat},${data.lng}`;
         }
         Linking.canOpenURL(url).then(supported => {
@@ -584,7 +577,6 @@ PostDetail.propTypes = {
   requestAddFavorite: React.PropTypes.func,
   requestRemoveFavorite: React.PropTypes.func,
   requestNearbyPlaces: React.PropTypes.func,
-  requestPlacePhotos: React.PropTypes.func,
   _photoreference: React.PropTypes.string,
   _nearbyPlaces: React.PropTypes.array,
   isFav: React.PropTypes.bool,
@@ -610,7 +602,6 @@ const _injectPropsFormActions = {
   requestAddFavorite,
   requestRemoveFavorite,
   requestNearbyPlaces,
-  requestPlacePhotos,
 };
 
 export default connect(_injectPropsFromStore, _injectPropsFormActions)(PostDetail);
