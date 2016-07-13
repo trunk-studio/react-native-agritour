@@ -157,7 +157,7 @@ export default class PostList extends Component {
         title={rowData.title}
         img={rowData.cover}
         place={rowData.place}
-        status={rowData.status}
+        status={rowData.item1}
         tagColor={tagColor}
         level={rowData.level}
         detail_02={rowData.detail_02}
@@ -174,7 +174,7 @@ export default class PostList extends Component {
         title={rowData.title}
         img={rowData.cover}
         place={rowData.place}
-        status={rowData.status}
+        status={rowData.item1}
         tagColor={tagColor}
         onItemPress={this.onListItemPress.bind(this, rowData)}
         bakColor={bakColor}

@@ -26,20 +26,23 @@ const styles = StyleSheet.create({
 });
 
 export default function SeasonalFruit(props) {
-  const { listData } = props;
+  const { title, listData, onItemPress } = props;
   return (
     <View style={styles.content}>
-      <Text style={styles.text}>當季盛產水果</Text>
+      <Text style={styles.text}>{title}</Text>
       <View style={styles.list}>
         {
-          listData.map(function(item, i) {
-            return (
+          listData.map((item, i) => {
+            const block = (
               <ListItem
                 key={i}
                 title={item.title}
+                data={item.data}
                 img={item.img}
+                onItemPress={onItemPress}
               />
             );
+            return block;
           })
         }
       </View>
@@ -48,6 +51,7 @@ export default function SeasonalFruit(props) {
 }
 
 SeasonalFruit.propTypes = {
+  title: PropTypes.string,
   listData: PropTypes.array,
   onItemPress: PropTypes.func,
 };

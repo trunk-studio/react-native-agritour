@@ -10,13 +10,22 @@ import React, {
   BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import CoverCard from '../components/CoverCard';
+// import CoverCard from '../components/CoverCard';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
 import ParallaxView from 'react-native-parallax-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { checkIsFav, requestAddFavorite, requestRemoveFavorite } from '../actions/FavoriteActions';
+import SeasonalFruit from '../components/SeasonalFruit/List';
+import {
+  checkIsFav,
+  requestAddFavorite,
+  requestRemoveFavorite,
+} from '../actions/FavoriteActions';
+import {
+  requestNearbyPlaces,
+  requestPlacePhotos,
+} from '../actions/GeoActions';
 import LightBox from 'react-native-lightbox';
 const StyleSheet = require('../utils/F8StyleSheet');
 const windowSize = Dimensions.get('window');
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   parallaxView: {
-    //遮掉地圖下方的商標文字
+    // 遮掉地圖下方的商標文字
     marginBottom: -15,
   },
   title: {
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
   scrollFrame: {
     flex: 1,
     flexDirection: 'column',
-    //paddingBottom: 25,
+    // paddingBottom: 25,
   },
   scrollContainer: {
     flex: 1,
@@ -158,6 +167,12 @@ const styles = StyleSheet.create({
       shadowOpacity: 1.0,
     },
   },
+  sectionNearbyPlaces: {
+    marginTop: 30,
+    marginBottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 class PostDetail extends Component {
@@ -169,7 +184,7 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', function () {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
       try {
         Actions.pop();
         return true;
@@ -177,6 +192,14 @@ class PostDetail extends Component {
         return false;
       }
     });
+    this.getNearbyPlaces();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.title !== nextProps.title) {
+      console.log('getNearbyPlaces now');
+      this.getNearbyPlaces();
+    }
   }
 
   componentWillUnmount() {
@@ -188,6 +211,20 @@ class PostDetail extends Component {
       url: this.props.url,
       title: this.props.title,
     });
+  }
+
+  getNearbyPlaces = () => {
+    const { lon, lat } = this.props;
+    const position = {
+      lon,
+      lat,
+    };
+    this.props.requestNearbyPlaces(position, 1000);
+  }
+
+  getNearbyPlacePhotos = () => {
+    const { _photoreference } = this.props;
+    this.props.requestPlacePhotos(_photoreference);
   }
 
   info = () => {
@@ -245,7 +282,7 @@ class PostDetail extends Component {
 
   map = () => {
     const imgWidth = windowSize.width;
-    const imgHeight = parseInt(imgWidth / 16.0 * 9.0);
+    const imgHeight = parseInt(imgWidth / 16.0 * 9.0, 10);
 
     let map = (
       <LightBox>
@@ -309,10 +346,13 @@ class PostDetail extends Component {
     );
   }
 
-  navigate = () => {
+  navigate = (data) => {
     Alert.alert('立即前往', '注意：導航僅供參考', [
       { text: '確認並前往', onPress: () => {
-        const url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${this.props.lat},${this.props.lon}`;
+        let url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${this.props.lat},${this.props.lon}`;
+        if (data) {
+          url = `https://www.google.com.tw/maps/dir/${this.props.myLat},${this.props.myLon}/${data.lat},${data.lng}`;
+        }
         Linking.canOpenURL(url).then(supported => {
           if (supported) {
             Linking.openURL(url);
@@ -346,7 +386,6 @@ class PostDetail extends Component {
     // });
   }
 
-
   render() {
     let tagColor = '';
     if (this.props.status !== 'null') {
@@ -366,6 +405,28 @@ class PostDetail extends Component {
       }
     }
 
+    const { _nearbyPlaces } = this.props;
+    let sectionNearbyPlaces = null;
+    if (_nearbyPlaces) {
+      sectionNearbyPlaces = (
+      <SeasonalFruit
+        onItemPress={this.navigate}
+        title={'附近行程'}
+        listData={[{
+          title: _nearbyPlaces[0].name,
+          img: _nearbyPlaces[0].photo,
+          data: _nearbyPlaces[0].geometry.location,
+        }, {
+          title: _nearbyPlaces[1].name,
+          img: _nearbyPlaces[1].photo,
+          data: _nearbyPlaces[1].geometry.location,
+        }, {
+          title: _nearbyPlaces[2].name,
+          img: _nearbyPlaces[2].photo,
+          data: _nearbyPlaces[2].geometry.location,
+        }]}
+      />);
+    }
     let toolbar = (
       <View>
         <View index={0} style={styles.scrollContainer}>
@@ -396,21 +457,10 @@ class PostDetail extends Component {
             {this.props.description_01}
           </Text>
         </View>
-        <View style={{ marginBottom: 18, justifyContent: 'center', alignItems: 'center' }}>
-          {/* <TouchableOpacity
-            style={{
-              padding: 5,
-              paddingLeft: 10,
-              paddingRight: 10,
-              backgroundColor: '#709D2A',
-              borderRadius: 5,
-            }}
-            onPress={this.onImageSrcBtn}
-          >
-            <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
-          </TouchableOpacity>*/}
+        <View style={styles.sectionNearbyPlaces}>
+          {sectionNearbyPlaces}
         </View>
-        {/*{this.map()}*/}
+        {/* {this.map()}*/}
         {this.gmap()}
       </View>
     );
@@ -424,7 +474,10 @@ class PostDetail extends Component {
               { backgroundColor: 'rgba(0, 0, 0, 0)' },
               ]}
             >
-              <TouchableOpacity onPress={this.navigate} style={[styles.toolButton, {position: 'absolute', right: 40,}]}>
+              <TouchableOpacity
+                onPress={this.navigate}
+                style={[styles.toolButton, { position: 'absolute', right: 40 }]}
+              >
                 <MaterialIcon
                   allowFontScaling={false}
                   name="near-me"
@@ -436,7 +489,10 @@ class PostDetail extends Component {
                   {this.props.place}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.favorite} style={[styles.toolButton, {position: 'absolute', right: 5}]}>
+              <TouchableOpacity
+                onPress={this.favorite}
+                style={[styles.toolButton, { position: 'absolute', right: 5 }]}
+              >
                 <Icon
                   allowFontScaling={false}
                   name={ this.state.isFav ? 'heart' : 'heart-o' }
@@ -445,10 +501,12 @@ class PostDetail extends Component {
                   style={[styles.menuIcon, styles.favoriteIcon]}
                 />
               </TouchableOpacity>
-            <Text allowFontScaling={false} style={{ marginTop: 34, fontSize: 14, marginBottom: 20, lineHeight: 25 }}>
+            <Text allowFontScaling={false} style={
+              { marginTop: 34, fontSize: 14, marginBottom: 20, lineHeight: 25 }}
+            >
               {this.props.description_01}
             </Text>
-            {/*<TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 width: 150,
                 marginLeft: 100,
@@ -462,7 +520,7 @@ class PostDetail extends Component {
             >
               <Text allowFontScaling={false} style={{ fontSize: 16, color: '#FFF' }}>檢視完整步道介紹</Text>
             </TouchableOpacity>*/}
-          {/*{this.map()}*/}
+          {/* {this.map()}*/}
           {this.gmap()}
         </View>
         );
@@ -529,6 +587,10 @@ PostDetail.propTypes = {
   url: React.PropTypes.string,
   requestAddFavorite: React.PropTypes.func,
   requestRemoveFavorite: React.PropTypes.func,
+  requestNearbyPlaces: React.PropTypes.func,
+  requestPlacePhotos: React.PropTypes.func,
+  _photoreference: React.PropTypes.string,
+  _nearbyPlaces: React.PropTypes.array,
   isFav: React.PropTypes.bool,
   cover: React.PropTypes.string,
   coverSourceUrl: React.PropTypes.string,
@@ -544,12 +606,15 @@ function _injectPropsFromStore(state) {
   return {
     myLat: state.geo.lat,
     myLon: state.geo.lon,
+    _nearbyPlaces: state.geo._nearbyPlaces,
   };
 }
 
 const _injectPropsFormActions = {
   requestAddFavorite,
   requestRemoveFavorite,
+  requestNearbyPlaces,
+  requestPlacePhotos,
 };
 
 export default connect(_injectPropsFromStore, _injectPropsFormActions)(PostDetail);
