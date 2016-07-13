@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     height: 140,
     justifyContent: 'center',
     alignItems: 'center',
+    android: {
+      height: 180,
+    }
   },
   list: {
     flexDirection: 'row',
