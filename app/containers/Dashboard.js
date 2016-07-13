@@ -20,10 +20,10 @@ import { requestSetLocation } from '../actions/GeoActions';
 import DashboardFilter from './DashboardFilter';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import SeasonalFruit from '../components/SeasonalFruit/List';
-const coverImg = require('../images/dashboard.jpg');
-const coverBottomImg = require('../images/coverBottom.png');
-// const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/dashboard.jpg' };
-// const coverBottomImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/cover-bottom.png' };
+// const coverImg = require('../images/dashboard.jpg');
+// const coverBottomImg = require('../images/coverBottom.png');
+const coverImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/dashboard.jpg' };
+const coverBottomImg = { uri: 'https://s3-ap-northeast-1.amazonaws.com/s3.trunksys.com/agritour/prod/images/cover-bottom.png' };
 const StyleSheet = require('../utils/F8StyleSheet');
 const windowSize = Dimensions.get('window');
 const styles = StyleSheet.create({
