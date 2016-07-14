@@ -1,10 +1,9 @@
 import React, {
-  PixelRatio,
-  View,
   Text,
   TouchableOpacity,
   Image,
 } from 'react-native';
+
 const StyleSheet = require('../../utils/F8StyleSheet');
 const styles = StyleSheet.create({
   commentContent: {
@@ -23,19 +22,27 @@ const styles = StyleSheet.create({
     color: '#F08F74',
   },
 });
+
 export default function ListItem(props) {
-  function onItemPress() {}
+  function onItemPress() {
+    console.log('ListItem onItemPress & props.data=>', props.data);
+    props.onItemPress(props.data);
+  }
   return (
-    <View style={styles.commentContent}>
+    <TouchableOpacity
+      style={styles.commentContent}
+      onPress={onItemPress}
+    >
       <Image source={{ uri: props.img }} style={ styles.pic } />
       <Text style={styles.text}>{props.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 ListItem.propTypes = {
   title: React.PropTypes.string,
   img: React.PropTypes.string,
+  data: React.PropTypes.any,
   onItemPress: React.PropTypes.func,
 };
 
