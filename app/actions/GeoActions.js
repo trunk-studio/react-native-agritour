@@ -1,6 +1,8 @@
 export const RECEIVED_SET_LOCATION = 'RECEIVED_SET_LOCATION';
 export const RECEIVED_NEARBY_PLACES = 'RECEIVED_NEARBY_PLACES';
 
+import axios from 'axios';
+
 function receivedSetLocation(loc) {
   return {
     type: RECEIVED_SET_LOCATION,
@@ -78,34 +80,41 @@ export async function requestNearbyPlaces(position, radius) {
 
   // fetch data here
   const apiWithParams = placeApi + target + range + language + types + apiKey;
-  const _nearbyPlaces = await fetch(apiWithParams)
-                              .then(response => response.json())
-                              .catch((e) => console.log('fetch placeApi error=>', e));
+  let _nearbyPlaces = '';
+  try {
+    _nearbyPlaces = await axios(apiWithParams);
+  } catch (error) {
+    console.error(error);
+  }
+  let _nearbyPlacesWithPhotos = [];
+  const checkLength = _nearbyPlaces.data.results.length > 0;
+  const checkStatus = _nearbyPlaces.status === 200;
 
-  // prepare parameters for google `placePhoto` api.
-  const placePhotosApi = 'https://maps.googleapis.com/maps/api/place/photo';
-  const size = '?maxwidth=100';
-  const _nearbyPlacesWithPhotos = _nearbyPlaces.results;
+  if (checkLength && checkStatus) {
+    _nearbyPlacesWithPhotos = _nearbyPlaces.data.results;
+    // prepare parameters for google `placePhoto` api.
+    const placePhotosApi = 'https://maps.googleapis.com/maps/api/place/photo';
+    const size = '?maxwidth=100';
 
-  // merge photo into the result object _nearbyPlacesWithPhotos.
-  for (let i = 0; i < _nearbyPlacesWithPhotos.length - 1; i++) {
-    try {
-      const type = typeof _nearbyPlacesWithPhotos[i].photos === 'object';
-      if (type && _nearbyPlacesWithPhotos[i].photos.length > 0) {
-        const photoreference =
-        `&photoreference=${_nearbyPlacesWithPhotos[i].photos[0].photo_reference}`;
-        // fetch data here.
-        const placePhotosApiWithParams = placePhotosApi + size + photoreference + apiKey;
-        const results = await fetch(placePhotosApiWithParams).then(response => response.url);
-        _nearbyPlacesWithPhotos[i].photo = results;
-      } else {
-        _nearbyPlacesWithPhotos[i].photo = 'https://unsplash.it/80/80/?random';
+    // merge photo into the result object _nearbyPlacesWithPhotos.
+    for (let i = 0; i < _nearbyPlacesWithPhotos.length - 1; i++) {
+      try {
+        const type = typeof _nearbyPlacesWithPhotos[i].photos === 'object';
+        if (type && _nearbyPlacesWithPhotos[i].photos.length > 0) {
+          const photoreference =
+          `&photoreference=${_nearbyPlacesWithPhotos[i].photos[0].photo_reference}`;
+          // fetch data here.
+          const placePhotosApiWithParams = placePhotosApi + size + photoreference + apiKey;
+          _nearbyPlacesWithPhotos[i].photo = placePhotosApiWithParams;
+          // console.log('results=>', results);
+        } else {
+          _nearbyPlacesWithPhotos[i].photo = 'https://unsplash.it/80/80/?random';
+        }
+      } catch (e) {
+        console.log('fetch placePhotosApi error=>', e);
       }
-    } catch (e) {
-      console.log('fetch placePhotosApi error=>', e);
     }
   }
-
   return (dispatch) => {
     dispatch(receivedNearByPlaces(_nearbyPlacesWithPhotos));
   };
