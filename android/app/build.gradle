@@ -80,7 +80,7 @@ android {
     signingConfigs {
         config {
             keyAlias 'Trunk-Studio'
-            storeFile file('/Users/kueiyen/trunkstudio_keystore.jks')
+            storeFile file('/Users/kueiyen/Dropbox/trunkstudio_keystore.jks')
         }
     }
     compileSdkVersion 23
@@ -89,8 +89,8 @@ android {
         applicationId 'com.trunksys.agritour'
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 4
-        versionName '1.0.1'
+        versionCode 7
+        versionName '1.0.3'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

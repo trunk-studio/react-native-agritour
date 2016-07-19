@@ -12,13 +12,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     android: {
       height: 180,
-    }
+    },
   },
   list: {
     flexDirection: 'row',
     android: {
       marginBottom: 15,
     },
+    paddingRight: 5,
+    paddingLeft: 5,
   },
   text: {
     color: '#F08F74',
