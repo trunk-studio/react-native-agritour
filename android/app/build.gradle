@@ -89,8 +89,8 @@ android {
         applicationId 'com.trunksys.agritour'
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 7
-        versionName '1.0.3'
+        versionCode 8
+        versionName '1.0.5'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
